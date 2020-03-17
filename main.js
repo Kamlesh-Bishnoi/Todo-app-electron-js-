@@ -16,7 +16,7 @@ function createWindow() {
   });
   win.loadURL(
     url.format({
-      pathname: path.join(__dirname, "newTodos.html"),
+      pathname: path.join(__dirname, "login.html"),
       protocol: "file",
       slashes: true
     })

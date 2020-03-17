@@ -1,3 +1,4 @@
+
 // Click on a close button to hide the current list item
 var close = document.getElementsByClassName("close");
 
@@ -58,14 +59,19 @@ function newElement(item) {
   span.appendChild(txt);
   li.appendChild(span);
 }
+ 
+// Using API
+
 function detail() {
   var inputValue = document.getElementById("myInput").value;
   if (inputValue === "") {
     alert("You must write something!");
     return;
   }
-  console.log("inpuutut", inputValue);
-  fetch("http://localhost:4050/api/create", {
+  
+  let user=JSON.parse(localStorage.getItem("user"));
+  let userId=user._id;
+  fetch("http://localhost:4050/api/create/"+userId, {
     method: "POST",
     body: JSON.stringify({ title: inputValue }),
     headers: { "Content-Type": "application/json" }
@@ -75,3 +81,24 @@ function detail() {
       this.newElement(res.data);
     });
 }
+
+
+function getTodoItem(){
+  let user=JSON.parse(localStorage.getItem("user"));
+  let userId=user._id;
+    fetch("http://localhost:4050/api/get/"+userId,{
+      method:"GET",
+      headers: { "Content-Type": "application/json" }
+    })
+    .then(res=>res.json())
+    .then(res =>{
+    
+      res.data.forEach(item => {
+        this.newElement(item);
+      });
+    })
+  }
+  getTodoItem();
+  
+
+ 
